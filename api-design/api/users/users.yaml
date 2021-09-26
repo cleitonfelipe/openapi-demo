@@ -13,35 +13,39 @@ paths:
     get:
       tags:
         - users
-      summary: Get information about the learner
+      summary: Get information about the users
       description: retrieve contextual information about the user
-      operationId: getUserContext
+      parameters:
+        - name: Name
+          in: query
+          description: Inform the name being searched for
+        - name: pagesize
+          in: query
+          description: Limits the number of items on a page
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Specifies the page number of the artists to be displayed
+          schema:
+            type: integer
       responses:
         "200":
           description: Operation successfully executed
           content:
             application/json:
               schema:
-              type: "object"
-              decription: "Operation successfully executed"
-              properties:
-                message:
-                  type: "object"
-                  exemple: "ok"
-        "403":
-          description: Trying to access unuserized data
-          content:
-            application/json:
-              schema:
-                type: "object"
-                description: "Trying to access unauthorized data"
-                properties:
-                  message:
-                    type: "string"
-                    description: >
-                      Description of the error. It must let the origin clear and should contain suggestions for fixing 
-                      it - for example - the argument that is incorrect and what type of value is expected
-                    example: "You don't have enough permissions to perform the requested operation."
+                type: array
+                items:
+                  type: object
+                  decription: "Operation successfully executed"
+                  properties:
+                    message:
+                      type: "object"
+                      description: >
+                        Response 200
+                      example:
+                        $ref: "#/sample/schemas/User"
         "404":
           description: User not found
           content:
@@ -56,6 +60,17 @@ paths:
                       Description of the error. It must let the origin clear and should contain suggestions for fixing 
                       it - for example - the argument that is incorrect and what type of value is expected
                     example: "A resource that matches the requested criteria wasn't found. Please check the given identifier and try again."
+sample:
+  schemas:
+    User:
+      id: 1,
+      name: Cleiton,
+      surname: Moraes,
+      position: Software Developer,
+      technologies: [.Net, Azure, AWS, Docker, Node, Mongo, SQL Server]
+      _links: 
+        self: /users/1
+
 components:
   schemas:
     User:
@@ -68,6 +83,17 @@ components:
         name:
           type: string
           example: Cleiton
+        surname:
+          type: string
+          example: Moraes
+        position:
+          type: string
+          example: Software Developer
+        technologies:
+          type: string
+          enum: [.Net, Azure, AWS, Docker, Node, Mongo, SQL Server]
+          description: List of the technologies from the user
+          example: [.Net, Azure, Mongo, SQL Server]
         _links:
           type: object
           properties:
