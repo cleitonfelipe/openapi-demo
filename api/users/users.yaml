@@ -1,0 +1,77 @@
+openapi: 3.0.2
+info:
+  title: OpenApi Demo - User
+  description: This is the design api for the User resources
+  version: 1.1.2
+servers:
+  - url: "https://api.openapidemo.com"
+tags:
+  - name: users
+    description: Information about the learner context
+paths:
+  /users:
+    get:
+      tags:
+        - users
+      summary: Get information about the learner
+      description: retrieve contextual information about the user
+      operationId: getUserContext
+      responses:
+        "200":
+          description: Operation successfully executed
+          content:
+            application/json:
+              schema:
+              type: "object"
+              decription: "Operation successfully executed"
+              properties:
+                message:
+                  type: "object"
+                  exemple: "ok"
+        "403":
+          description: Trying to access unuserized data
+          content:
+            application/json:
+              schema:
+                type: "object"
+                description: "Trying to access unauthorized data"
+                properties:
+                  message:
+                    type: "string"
+                    description: >
+                      Description of the error. It must let the origin clear and should contain suggestions for fixing 
+                      it - for example - the argument that is incorrect and what type of value is expected
+                    example: "You don't have enough permissions to perform the requested operation."
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: "object"
+                description: "Resource not found"
+                properties:
+                  message:
+                    type: "string"
+                    description: >
+                      Description of the error. It must let the origin clear and should contain suggestions for fixing 
+                      it - for example - the argument that is incorrect and what type of value is expected
+                    example: "A resource that matches the requested criteria wasn't found. Please check the given identifier and try again."
+components:
+  schemas:
+    User:
+      type: object
+      description: Retrieves the information about the visitor context
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Cleiton
+        _links:
+          type: object
+          properties:
+            self: 
+              type: string
+              description: link to the current context
+              example: /users/1

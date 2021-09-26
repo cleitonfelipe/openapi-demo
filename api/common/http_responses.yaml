@@ -1,0 +1,113 @@
+components:
+  schemas:
+    Response200:
+      type: "object"
+      description: "Operation successfully executed"
+    Response201:
+      type: "object"
+      description: "Item successfully created"
+    Response204:
+      type: "object"
+      description: "No Content"  
+    Response400:
+      type: "object"
+      description: "Bad request"
+      properties:
+        message:
+          type: "string"
+          description: >
+            Description of the error. It must let the origin clear and should contain suggestions for fixing 
+            it - for example - the argument that is incorrect and what type of value is expected
+          example: "The request body and/or parameters have malformed element(s)"
+    Response400Validator:
+      allOf:
+        - $ref: './http_responses.yaml#/components/schemas/Response400'
+        - type: object
+          description: "The informed data is not valid"
+          properties:
+            errors:
+              type: "object"
+              description: >
+                An object containing key:array pairs where the key represents the field with the invalid data and the array
+                contains all the validation errors that occurred.
+              additionalProperties:
+                type: array
+                description: "Array of error messages"
+                minItems: 1
+                uniqueItems: true
+                items:
+                  type: "string"
+                  description: "Message of the error"
+    Response401:
+      type: "object"
+      description: "User not logged"
+      properties:
+        message:
+          type: "string"
+          description: >
+            Description of the error. It must let the origin clear and should contain suggestions for fixing 
+            it - for example - the argument that is incorrect and what type of value is expected
+          example: "You must be looged to perform this operation"
+    Response403:
+      type: "object"
+      description: "Trying to access unauthorized data"
+      properties:
+        message:
+          type: "string"
+          description: >
+            Description of the error. It must let the origin clear and should contain suggestions for fixing 
+            it - for example - the argument that is incorrect and what type of value is expected
+          example: "You don't have enough permissions to perform the requested operation."
+    Response404:
+      type: "object"
+      description: "Resource not found"
+      properties:
+        message:
+          type: "string"
+          description: >
+            Description of the error. It must let the origin clear and should contain suggestions for fixing 
+            it - for example - the argument that is incorrect and what type of value is expected
+          example: "A resource that matches the requested criteria wasn't found. Please check the given identifier and try again."
+    Response409:
+      type: "object"
+      description: "Conflict"
+      properties:
+        message:
+          type: "string"
+          description: >
+            Description of the error. It must let the origin clear and should contain suggestions for fixing 
+            it - for example - the argument that is incorrect and what type of value is expected
+          example: "There's a duplicate record for the current request body."
+
+    Response501:
+      type: "object"
+      description: "Not implemented"
+      properties:
+        message:
+          type: "string"
+          description: >
+            Description of the error. It must let the origin clear and should contain suggestions for fixing 
+            it - for example - the argument that is incorrect and what type of value is expected
+          example: "This setting is not available"
+
+    Response500:
+      type: "object"
+      description: "Internal server error"
+      properties:
+        message:
+          type: "string"
+          description: >
+            Description of the error. It must let the origin clear and should contain suggestions for fixing 
+            it - for example - the argument that is incorrect and what type of value is expected
+          example: "Internal server error"
+
+    Response503:
+      type: "object"
+      description: "Service Unavailable"
+      properties:
+        message:
+          type: "string"
+          description: >
+            Description of the error. It must let the origin clear and should contain suggestions for fixing 
+            it - for example - the argument that is incorrect and what type of value is expected
+          example: "Error accessing server"
