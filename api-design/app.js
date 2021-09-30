@@ -8,7 +8,7 @@ const YAML = require('yamljs');
 // const fs = require('fs');
 const swaggerDocument = YAML.load('./api/users/users.yaml');
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api/v1/users', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(bodyParser.urlencoded({
     extended: true

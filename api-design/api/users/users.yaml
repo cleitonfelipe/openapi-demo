@@ -1,15 +1,15 @@
 openapi: 3.0.2
 info:
-  title: OpenApi Demo - User
+  title: OpenApi Demo - Users
   description: This is the design api for the User resources
   version: 1.1.2
 servers:
   - url: "https://api.openapidemo.com"
 tags:
   - name: users
-    description: Information about the learner context
+    description: Information about the user context
 paths:
-  /users:
+  /v1/users:
     get:
       tags:
         - users
@@ -35,17 +35,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: object
-                  decription: "Operation successfully executed"
-                  properties:
-                    message:
-                      type: "object"
-                      description: >
-                        Response 200
-                      example:
-                        $ref: "#/sample/schemas/User"
+                $ref: "#/components/schemas/User"
         "404":
           description: User not found
           content:
@@ -60,16 +50,141 @@ paths:
                       Description of the error. It must let the origin clear and should contain suggestions for fixing 
                       it - for example - the argument that is incorrect and what type of value is expected
                     example: "A resource that matches the requested criteria wasn't found. Please check the given identifier and try again."
-sample:
-  schemas:
-    User:
-      id: 1,
-      name: Cleiton,
-      surname: Moraes,
-      position: Software Developer,
-      technologies: [.Net, Azure, AWS, Docker, Node, Mongo, SQL Server]
-      _links: 
-        self: /users/1
+
+    post:
+      tags:
+        - users
+      summary: Insert new user
+      description: Insert new user in application
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Payload the information to create new user
+              properties:
+                name:
+                  type: string
+                  example: Cleiton
+                surname:
+                  type: string
+                  example: Moraes
+                position:
+                  type: string
+                  example: Software Developer
+                technologies:
+                  type: string
+                  enum: [.Net, Azure, AWS, Docker, Node, Mongo, SQL Server]
+                  description: List of the technologies from the user
+                  example: [.Net, Azure, Mongo, SQL Server]
+      responses:
+        "201":
+          description: Item successfully created
+          content:
+            application/json:
+              schema:
+                type: "object"
+                description: "Item successfully created"
+                properties:
+                  message:
+                    type: "string"
+                    description: >
+                      Description to user created
+                    example: "Item successfully created"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: "object"
+                description: "Bad request"
+                properties:
+                  message:
+                    type: "string"
+                    description: >
+                      Description of the error. It must let the origin clear and should contain suggestions for fixing 
+                      it - for example - the argument that is incorrect and what type of value is expected
+                    example: "The request body and/or parameters have malformed element(s)"
+
+    put:
+      tags:
+        - users
+      summary: Update user
+      description: Update user in application
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Payload the information to update new user
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                name:
+                  type: string
+                  example: Cleiton
+                surname:
+                  type: string
+                  example: Moraes
+                position:
+                  type: string
+                  example: Software Developer
+                technologies:
+                  type: string
+                  enum: [.Net, Azure, AWS, Docker, Node, Mongo, SQL Server]
+                  description: List of the technologies from the user
+                  example: [.Net, Azure, Mongo, SQL Server]
+    
+    delete:
+      tags:
+        - users
+      summary: Delete user
+      description: Delete user in application
+      parameters:
+        - name: id
+          in: query
+          description: Id to delete user
+          schema:
+            type: integer
+      # requestBody:
+      #   content:
+      #     application/json:
+      #       schema:
+      #         type: object
+      #         description: Payload the information to delete new user
+      #         properties:
+      #           id:
+      #             type: integer
+      #             example: 1  
+      responses:
+        "201":
+          description: Item successfully deleted
+          content:
+            application/json:
+              schema:
+                type: "object"
+                description: "Item successfully deleted"
+                properties:
+                  message:
+                    type: "string"
+                    description: >
+                      Description to user deleted
+                    example: "Item successfully deleted"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: "object"
+                description: "Bad request"
+                properties:
+                  message:
+                    type: "string"
+                    description: >
+                      Description of the error. It must let the origin clear and should contain suggestions for fixing 
+                      it - for example - the argument that is incorrect and what type of value is expected
+                    example: "The request body and/or parameters have malformed element(s)"
 
 components:
   schemas:
