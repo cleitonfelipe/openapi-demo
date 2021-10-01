@@ -7,6 +7,7 @@
         public string Surname { get; set; }
         public string Position { get; set; }
         public string[] Technologies { get; set; }
+        public string Department { get; set; }
         public _Links _links { get; set; }
     }
 }

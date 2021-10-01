@@ -26,6 +26,7 @@ namespace OpenAPi_Demo.Controllers
                     Surname = "MOraes",
                     Position = "Software Developer",
                     Technologies = tech,
+                    Department = "I.T",
                     _links = new _Links
                     {
                         Self = $"api/user/1"

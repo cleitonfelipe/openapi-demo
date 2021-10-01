@@ -15,20 +15,20 @@ paths:
         - users
       summary: Get information about the users
       description: retrieve contextual information about the user
-      parameters:
-        - name: Name
-          in: query
-          description: Inform the name being searched for
-        - name: pagesize
-          in: query
-          description: Limits the number of items on a page
-          schema:
-            type: integer
-        - name: offset
-          in: query
-          description: Specifies the page number of the artists to be displayed
-          schema:
-            type: integer
+      # parameters:
+      #   - name: Name
+      #     in: query
+      #     description: Inform the name being searched for
+      #   - name: pagesize
+      #     in: query
+      #     description: Limits the number of items on a page
+      #     schema:
+      #       type: integer
+      #   - name: offset
+      #     in: query
+      #     description: Specifies the page number of the artists to be displayed
+      #     schema:
+      #       type: integer
       responses:
         "200":
           description: Operation successfully executed
@@ -204,6 +204,9 @@ components:
         position:
           type: string
           example: Software Developer
+        department:
+          type: string
+          example: I.T
         technologies:
           type: string
           enum: [.Net, Azure, AWS, Docker, Node, Mongo, SQL Server]
